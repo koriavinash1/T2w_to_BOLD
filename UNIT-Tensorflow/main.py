@@ -4,13 +4,15 @@ from utils import *
 
 """parsing and configuration"""
 def parse_args():
-    desc = "Tensorflow implementation of UNIT"
+    desc = "Tensorflow implementation of UNIT for T2w to BOLD conversion"
+
     parser = argparse.ArgumentParser(description=desc)
+
     parser.add_argument('--phase', type=str, default='train', help='train or test ?')
-    parser.add_argument('--dataset', type=str, default='cat2dog', help='dataset_name')
+    parser.add_argument('--dataset', type=str, default='T2_to_BOLD', help='dataset_name')
 
     parser.add_argument('--epoch', type=int, default=200, help='The number of epochs to run')
-    parser.add_argument('--batch_size', type=int, default=1, help='The size of batch')
+    parser.add_argument('--batch_size', type=int, default=6, help='The size of batch')
 
     parser.add_argument('--lr', type=float, default=0.0001, help='The learning rate')
     parser.add_argument('--GAN_weight', type=float, default=10.0, help='Weight about GAN, lambda0')
@@ -29,10 +31,10 @@ def parse_args():
     parser.add_argument('--n_dis', type=int, default=6, help='The number of discriminator layer')
 
     parser.add_argument('--res_dropout', type=float, default=0.0, help='The dropout ration of Resblock')
-    parser.add_argument('--smoothing', type=bool, default=False, help='smoothing loss use or not')
-    parser.add_argument('--lsgan', type=bool, default=False, help='lsgan loss use or not')
+    parser.add_argument('--smoothing', type=bool, default=True, help='smoothing loss use or not')
+    parser.add_argument('--lsgan', type=bool, default=True, help='lsgan loss use or not')
     parser.add_argument('--norm', type=str, default='instance', help='The norm type')
-    parser.add_argument('--replay_memory', type=bool, default=False, help='discriminator pool use or not')
+    parser.add_argument('--replay_memory', type=bool, default=True, help='discriminator pool use or not')
     parser.add_argument('--pool_size', type=int, default=50, help='The size of image buffer that stores previously generated images')
     parser.add_argument('--img_size', type=int, default=256, help='The size of image')
     parser.add_argument('--img_ch', type=int, default=3, help='The size of image channel')

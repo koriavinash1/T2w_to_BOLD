@@ -7,15 +7,15 @@ def conv(x, channels, kernel=3, stride=2, pad=0, normal_weight_init=False, activ
         x = tf.pad(x, [[0,0], [pad, pad], [pad, pad], [0,0]])
 
         if normal_weight_init :
-            x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=tf.truncated_normal_initializer(stddev=0.02),
+            x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=tf.truncated_normal_initializer(stddev=0.02),
                                  strides=stride, kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
         else :
             if activation_fn == 'relu' :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(), strides=stride,
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(), strides=stride,
                                      kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
             else :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel, strides=stride,
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel, strides=stride,
                                      kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
 
@@ -26,16 +26,16 @@ def conv(x, channels, kernel=3, stride=2, pad=0, normal_weight_init=False, activ
 def deconv(x, channels, kernel=3, stride=2, normal_weight_init=False, activation_fn='leaky', scope='deconv_0') :
     with tf.variable_scope(scope):
         if normal_weight_init:
-            x = tf.layers.conv2d_transpose(inputs=x, filters=channels, kernel_size=kernel,
+            x = tf.layers.conv3d_transpose(inputs=x, filters=channels, kernel_size=kernel,
                                  kernel_initializer=tf.truncated_normal_initializer(stddev=0.02),
                                  strides=stride, padding='SAME', kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
         else:
             if activation_fn == 'relu' :
-                x = tf.layers.conv2d_transpose(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(), strides=stride, padding='SAME',
+                x = tf.layers.conv3d_transpose(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(), strides=stride, padding='SAME',
                                                kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
             else :
-                x = tf.layers.conv2d_transpose(inputs=x, filters=channels, kernel_size=kernel, strides=stride, padding='SAME',
+                x = tf.layers.conv3d_transpose(inputs=x, filters=channels, kernel_size=kernel, strides=stride, padding='SAME',
                                                kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
         x = activation(x, activation_fn)
@@ -49,11 +49,11 @@ def resblock(x_init, channels, kernel=3, stride=1, pad=1, dropout_ratio=0.0, nor
             x = tf.pad(x_init, [[0, 0], [pad, pad], [pad, pad], [0, 0]])
 
             if normal_weight_init :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel,
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel,
                                      kernel_initializer=tf.truncated_normal_initializer(stddev=0.02),
                                      strides=stride, kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
             else :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(),
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel, kernel_initializer=he_init(),
                                      strides=stride, kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
             if norm_fn == 'instance' :
@@ -66,11 +66,11 @@ def resblock(x_init, channels, kernel=3, stride=1, pad=1, dropout_ratio=0.0, nor
             x = tf.pad(x, [[0, 0], [pad, pad], [pad, pad], [0, 0]])
 
             if normal_weight_init :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel,
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel,
                                      kernel_initializer=tf.truncated_normal_initializer(stddev=0.02),
                                      strides=stride, kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
             else :
-                x = tf.layers.conv2d(inputs=x, filters=channels, kernel_size=kernel, strides=stride,
+                x = tf.layers.conv3d(inputs=x, filters=channels, kernel_size=kernel, strides=stride,
                                      kernel_regularizer=tf_contrib.layers.l2_regularizer(scale=0.0001))
 
             if norm_fn == 'instance' :
